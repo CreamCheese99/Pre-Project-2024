@@ -40,3 +40,56 @@ document.addEventListener('DOMContentLoaded', function() {
 //     const form = document.querySelector('form');
 //     form.addEventListener('submit', handleSubmit);
 // });
+
+
+//ตรวจสอบว่ามีการกรอกข้อมูลในฟิลด์ทั้งหมดหรือไม่ หากกรอกครบก็จะแสดงข้อความ "บันทึกข้อมูลเรียบร้อย"
+// หากไม่ครบจะเปลี่ยนสีเส้นขอบของช่องที่ไม่ได้กรอกเป็นสีแดงและแสดงข้อความเตือนแทน
+
+// เลือกฟอร์ม
+const form = document.querySelector('form');
+
+// ฟังก์ชันตรวจสอบข้อมูล
+function validateForm(event) {
+    // ป้องกันการส่งฟอร์มโดยอัตโนมัติ
+    event.preventDefault();
+
+    // เก็บข้อมูลจากฟอร์ม
+    const inputs = form.querySelectorAll('input, textarea');
+    let isValid = true;
+
+    // ตรวจสอบแต่ละช่องว่าใส่ข้อมูลครบถ้วนหรือไม่
+    inputs.forEach(input => {
+        if (input.value.trim() === '') {
+            isValid = false;
+            input.style.border = '2px solid red'; // เปลี่ยนสีเส้นขอบเป็นสีแดงเพื่อบ่งบอกว่าข้อมูลไม่ถูกต้อง
+        } else {
+            input.style.border = '1px solid gray'; // เปลี่ยนกลับเป็นสีปกติเมื่อข้อมูลถูกต้อง
+        }
+    });
+
+    // ถ้าข้อมูลถูกต้อง ให้ทำการบันทึก (คุณสามารถเปลี่ยนไปใช้การบันทึกข้อมูลผ่าน API ได้)
+    if (isValid) {
+        alert('บันทึกข้อมูลเรียบร้อย');
+        // คุณสามารถส่งข้อมูลผ่าน API ได้ที่นี่
+        // เช่น:
+        // fetch('API_ENDPOINT', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(formData) // formData คือข้อมูลที่รวบรวมจากฟอร์ม
+        // })
+        // .then(response => response.json())
+        // .then(data => {
+        //     console.log('Success:', data);
+        // })
+        // .catch((error) => {
+        //     console.error('Error:', error);
+        // });
+    } else {
+        alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+    }
+}
+
+// เพิ่ม event listener สำหรับการส่งฟอร์ม
+form.addEventListener('submit', validateForm);
