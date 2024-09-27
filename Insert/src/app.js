@@ -1,11 +1,18 @@
-//เมื่อคลิกปุ่ม "บันทึก" จะมีการแสดงข้อความแจ้งเตือน "ข้อมูลได้ถูกบันทึกแล้ว!
-document.addEventListener('DOMContentLoaded', function() {
-    // เพิ่ม event listener สำหรับปุ่มบันทึกข้อมูล
-    const submitButton = document.querySelector('button[type="submit"]');
-    submitButton.addEventListener('click', function(event) {
-        event.preventDefault(); // ป้องกันการรีเฟรชหน้าเว็บ
-        alert('ข้อมูลได้ถูกบันทึกแล้ว!');
-    });
+document.getElementById('parcelForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // ป้องกันการรีเฟรชหน้า
+
+    // ตรวจสอบว่ากรอกข้อมูลครบหรือไม่
+    const image = document.getElementById('image').value;
+    const orderNumber = document.getElementById('orderNumber').value;
+    // ใส่ฟิลด์อื่น ๆ ที่ต้องการตรวจสอบ
+
+    if (!image || !orderNumber /* ใส่การตรวจสอบฟิลด์อื่น ๆ */) {
+        alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+        return;
+    }
+
+    // แสดงข้อความบันทึกสำเร็จ
+    document.getElementById('message').textContent = 'บันทึกข้อมูลสำเร็จ!';
 });
 
 
